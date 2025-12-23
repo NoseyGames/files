@@ -1,42 +1,298 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Epstein Exhibit 16</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Epstein Files Archive</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      background: #0f1115;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+<style>
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
+}
+
+/* ---------- LANDING ---------- */
+#landing {
+    position: fixed;
+    inset: 0;
+    background: #0a0a0a;
+    color: #e5e5e5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    text-align: center;
+    padding: 45px;
+    background: #111;
+    border: 1px solid #333;
+    box-shadow: 0 0 40px rgba(0,0,0,.8);
+    max-width: 420px;
+}
+
+.card h1 {
+    font-size: 22px;
+    margin-bottom: 25px;
+}
+
+.card button {
+    padding: 14px 32px;
+    font-size: 16px;
+    background: #b22222;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.card button:hover {
+    background: #8b0000;
+}
+
+.card .small {
+    margin-top: 20px;
+    font-size: 11px;
+    color: #777;
+}
+
+/* ---------- SEIZURE ---------- */
+#seized {
+    position: fixed;
+    inset: 0;
+    background: #fff;
+    color: #000;
+    display: none;
+    overflow-y: auto;
+}
+
+.wrapper {
+    max-width: 960px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #000;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    cursor: default;
+    user-select: none;
+}
+
+.seal {
+    width: 120px;
+    margin-right: 20px;
+}
+
+.seal img {
+    width: 100%;
+}
+
+.header-text h1 {
+    font-size: 20px;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.notice {
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.case-box {
+    border: 1px solid #000;
+    padding: 15px;
+    margin-top: 25px;
+    font-size: 14px;
+    background: #f9f9f9;
+}
+
+.timestamp {
+    margin-top: 20px;
+    font-family: monospace;
+    font-size: 13px;
+}
+
+/* ---------- DOCUMENT VIEWER ---------- */
+.viewer {
+    margin-top: 35px;
+    border: 1px solid #000;
+    height: 70vh;
+    display: none;
+    animation: fadeIn .6s ease forwards;
+}
+
+.viewer iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ---------- AGENCY LOGOS ---------- */
+.agencies {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin-top: 35px;
+    padding-top: 20px;
+    border-top: 1px solid #000;
+    flex-wrap: wrap;
+}
+
+.agencies img {
+    height: 70px;
+    object-fit: contain;
+}
+
+/* ---------- DISCLAIMER ---------- */
+.disclaimer {
+    margin-top: 10px;
+    font-size: 2px;
+    color: #666;
+    opacity: .6;
+    text-align: center;
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 600px) {
+    .header {
+        flex-direction: column;
+        text-align: center;
     }
-
+    .seal {
+        margin: 0 0 15px 0;
+    }
     .wrapper {
-      height: 100%;
-      padding: 16px;
-      box-sizing: border-box;
+        margin: 20px;
+        padding: 15px;
     }
-
-    .frame-container {
-      height: 100%;
-      width: 100%;
-    }
-  </style>
+}
+</style>
 </head>
+
 <body>
-  <div class="wrapper">
-    <div class="frame-container">
-      <iframe
-        src="https://hackread.com/wp-content/uploads/2025/01/operation-talent-fbi-seizes-nulled-to-cracked-to-sellix-io-1-1024x576.jpg"
-        width="612"
-        height="792"
-        style="border: 1px solid #d8dee2; border-radius: 0.5rem; width: 100%; height: 100%; aspect-ratio: 612 / 792"
-        allow="fullscreen">
-      </iframe>
+
+<!-- LANDING -->
+<div id="landing">
+    <div class="card">
+        <h1>Jeffrey Epstein Files Archive</h1>
+        <button onclick="triggerSeizure()">View Unredacted Epstein Files</button>
+        <div class="small">Restricted access · demonstrative archive</div>
     </div>
-  </div>
+</div>
+
+<!-- SEIZURE -->
+<div id="seized">
+    <div class="wrapper">
+
+        <div class="header" id="seizureHeader">
+            <div class="seal">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Seal_of_the_United_States_Department_of_Justice.svg">
+            </div>
+            <div class="header-text">
+                <h1>This Domain Has Been Seized</h1>
+                <p>by the United States Department of Justice (DOJ)</p>
+            </div>
+        </div>
+
+        <div class="notice">
+            <p>
+                This domain name has been seized pursuant to a seizure warrant issued by a
+                United States District Court under the authority of
+                <strong>18 U.S.C. §§ 981, 982, and 1030</strong>.
+            </p>
+            <p>
+                The domain was represented as hosting materials related to the
+                <strong>Jeffrey Epstein investigation</strong>, including purported
+                unredacted investigative records.
+            </p>
+            </p>
+        </div>
+
+        <div class="case-box">
+            <strong>Operation:</strong> Operation Talent Seizure<br>
+            <strong>Subject:</strong> Epstein‑Related Files<br>
+            <strong>Executing Agencies:</strong> DOJ, FBI, DHS<br>
+            <strong>Seizure Authority:</strong> Fed. R. Crim. P. 41
+        </div>
+
+        <div class="timestamp">
+            Seizure Timestamp (UTC):
+            <span id="time"></span>
+        </div>
+
+        <!-- DOCUMENT VIEWER (HIDDEN UNTIL 10 CLICKS) -->
+        <div class="viewer" id="viewer">
+            <iframe
+                src="https://embed.documentcloud.org/documents/1509485-exhibit-16-epstein/?embed=1"
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <div class="agencies">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/FBI_Seal.svg">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Seal_of_the_United_States_Department_of_Homeland_Security.svg">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/ICE_Seal.svg">
+        </div>
+
+        <div class="disclaimer">
+            Fictional demonstrative representation. No actual government action implied.
+        </div>
+
+    </div>
+</div>
+
+<script>
+let clickCount = 0;
+const REQUIRED_CLICKS = 10;
+
+function triggerSeizure() {
+    enterFullscreen();
+    document.getElementById("landing").style.display = "none";
+    document.getElementById("seized").style.display = "block";
+}
+
+function enterFullscreen() {
+    const el = document.documentElement;
+    if (el.requestFullscreen) el.requestFullscreen();
+}
+
+document.getElementById("seizureHeader").addEventListener("click", () => {
+    clickCount++;
+    if (clickCount === REQUIRED_CLICKS) {
+        document.getElementById("viewer").style.display = "block";
+    }
+});
+
+function updateTime() {
+    const d = new Date();
+    document.getElementById("time").textContent =
+        d.getUTCFullYear() + "-" +
+        String(d.getUTCMonth()+1).padStart(2,'0') + "-" +
+        String(d.getUTCDate()).padStart(2,'0') + " " +
+        String(d.getUTCHours()).padStart(2,'0') + ":" +
+        String(d.getUTCMinutes()).padStart(2,'0') + ":" +
+        String(d.getUTCSeconds()).padStart(2,'0') + " UTC";
+}
+
+updateTime();
+setInterval(updateTime, 1000);
+</script>
+
 </body>
 </html>
+
+
